@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import {ref} from 'vue'
+import { ref } from 'vue'
+import { onMounted } from 'vue';
 import axios from 'axios'
 import LockerRoomIdentifier from './LockerRoomIdentifier.vue';
 import TeamInfo from './TeamInfo.vue';
