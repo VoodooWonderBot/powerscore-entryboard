@@ -37,6 +37,7 @@ async function refreshTeams() {
 
 
 onMounted( () => {
+  refreshTeams()
   setInterval( () => {
     refreshTeams()
   }, 10000)

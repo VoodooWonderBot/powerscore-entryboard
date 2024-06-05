@@ -17,7 +17,7 @@ const placeholderTeam = {id: 0, name: "Waiting For Connection..."};
 const state: {team: Team} = reactive({team: placeholderTeam});
 
 function setTeam() {
-  state.team = props.teams.find((t) => t.id == props.id) || {id: 70, name: "Waiting for Assignent..."};
+  state.team = props.teams.find((t) => t.id == props.id) || {id: 70, name: "Waiting for Assignment..."};
 }
 
 onMounted( () => {
