@@ -10,38 +10,27 @@ interface Team {
 
 const props = defineProps<{
   teams: Team[],
-  editMode?: boolean,
+  id: number,
 }>();
 
-
-const select = ref<HTMLSelectElement | null>(null);
-const name = ref<HTMLDivElement | null>(null);
-const placeholderTeam = {id: 0, name: "No Assignent"};
+const placeholderTeam = {id: 0, name: "Waiting For Assignent..."};
 const state: {team: Team} = reactive({team: placeholderTeam});
 
-onMounted(() => {
-  select.value?.focus();
-  name.value?.focus();
-})
-
 function setTeam() {
-  console.log(select.value?.selectedIndex);
-  console.log(select.value?.options);
-  var id = select.value?.options[select.value?.selectedIndex].value || 0;
-  console.log(id);
-  state.team = props.teams.find((t) => t.id == id) || {id: 70, name: "AH"};
+  state.team = props.teams.find((t) => t.id == props.id) || {id: 70, name: "Waiting for connection..."};
 }
+
+onMounted( () => {
+    setTeam()
+})
 
 </script>
 
 <template>
   <div class="assignment-team-info">
     <div class="assignment-team-picture" v-html=state.team.image?.outerHTML></div>
-    <div class="assignment-team-name" @change="setTeam">
-      <select ref="select" name="team" v-if="props.editMode">
-        <option v-for="optionTeam in props.teams" :value=optionTeam.id >{{ optionTeam.name }}</option> 
-      </select>
-      <div ref="name" v-if="!props.editMode">
+    <div class="assignment-team-name">
+      <div ref="name">
         {{ state.team.name }}
       </div>
     </div>

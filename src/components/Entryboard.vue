@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { ref } from 'vue'
-import { onMounted } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import axios from 'axios'
 import LockerRoomIdentifier from './LockerRoomIdentifier.vue';
 import TeamInfo from './TeamInfo.vue';
-import RefreshButton from './RefreshButton.vue'
 import placeholderImage from "@/assets/img/hockeyClipart.jpg";
 
 // TODO: version of this page explicitly for the entryway (grab everything from server without edit button)
@@ -38,6 +35,13 @@ async function refreshTeams() {
     })
 }
 
+
+onMounted( () => {
+  setInterval( () => {
+    refreshTeams()
+  }, 10000)
+})
+
 function getTeams() : Team[] {
   return teams.value
 }
@@ -45,19 +49,14 @@ function getTeams() : Team[] {
 const lockerRoomCount = 5;
 const state = reactive({editMode: false});
 
-function toggleEditMode() {
-  state.editMode = !state.editMode;
-}
-
 </script>
 
 <template>
 
 <div class="entryboard">
-  <RefreshButton @refresh-teams="refreshTeams" />
-  <div class="assignment" v-for="i in 5">
+  <div class="assignment" v-for="i in lockerRoomCount">
     <LockerRoomIdentifier :number=i />
-    <TeamInfo :teams=getTeams() :edit-mode=state.editMode />
+    <TeamInfo :teams=getTeams() :id=i />
   </div>
 </div>
 
