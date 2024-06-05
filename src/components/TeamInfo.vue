@@ -13,11 +13,11 @@ const props = defineProps<{
   id: number,
 }>();
 
-const placeholderTeam = {id: 0, name: "Waiting For Assignent..."};
+const placeholderTeam = {id: 0, name: "Waiting For Connection..."};
 const state: {team: Team} = reactive({team: placeholderTeam});
 
 function setTeam() {
-  state.team = props.teams.find((t) => t.id == props.id) || {id: 70, name: "Waiting for connection..."};
+  state.team = props.teams.find((t) => t.id == props.id) || {id: 70, name: "Waiting for Assignent..."};
 }
 
 onMounted( () => {
